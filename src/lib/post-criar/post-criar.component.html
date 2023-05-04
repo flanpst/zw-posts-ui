@@ -1,0 +1,139 @@
+<div class="col-lg-12">
+  <nz-card>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" nzLayout="vertical" nz-form class="ant-advanced-search-form ">
+          <div nz-row [nzGutter]="24">
+              <div nz-col [nzSpan]="18">
+                  <nz-form-item>
+                      <nz-form-label>Título</nz-form-label>
+                      <nz-form-control>
+                          <input id="title" formControlName="title" nz-input placeholder="" />
+                      </nz-form-control>
+                  </nz-form-item>
+                  <nz-form-item>
+                      <nz-form-label>Conteúdo</nz-form-label>
+                      <nz-form-control>
+                          <quill-editor formControlName="content" class="w-100" [style]="{height: '600px'}"
+                              [modules]="editorConfig" placeholder="" theme="snow"></quill-editor>
+                      </nz-form-control>
+                  </nz-form-item>
+                  <nz-form-item>
+                      <nz-form-label>Resumo</nz-form-label>
+                      <nz-form-control>
+                          <textarea nz-input formControlName="resume"></textarea>
+                      </nz-form-control>
+                  </nz-form-item>
+                  <h2>SEO</h2>
+                  <nz-form-item>
+                      <nz-form-label>Meta title</nz-form-label>
+                      <nz-form-control>
+                          <input formControlName="meta_title" nz-input placeholder="" />
+                      </nz-form-control>
+                  </nz-form-item>
+                  <nz-form-item>
+                      <nz-form-label>Meta Description</nz-form-label>
+                      <nz-form-control>
+                          <input formControlName="meta_description" nz-input placeholder="" />
+                      </nz-form-control>
+                  </nz-form-item>
+                  <nz-tag *ngFor="let tag of tags; let i = index" [nzMode]="i === 0 ? 'default' : 'closeable'"
+                        (nzOnClose)="handleClose(tag)">
+                        {{ sliceTagName(tag) }}
+                    </nz-tag>
+                    <nz-tag *ngIf="!inputVisible" class="editable-tag" nzNoAnimation (click)="showInput()">
+                        <span nz-icon nzType="plus"></span>
+                        New Tag
+                    </nz-tag>
+                    <input
+                      #inputElement
+                      nz-input
+                      nzSize="small"
+                      *ngIf="inputVisible"
+                      type="text"
+                      [formControl]="inputControl"
+                      style="width: 78px;"
+                      (blur)="handleInputConfirm()"
+                      (keydown.enter)="handleInputConfirm()"
+                    />
+                  <br>
+                  <!--<nz-form-item>
+                      <nz-form-label>Newsletter</nz-form-label>
+                      <nz-form-control>
+                          <nz-form-control>
+                              <nz-select class="w-100" nzMode="multiple" nzPlaceHolder="Selecione o tipo">
+                                  <nz-option nzLabel="Recorrente" nzValue="recorrente"></nz-option>
+                                  <nz-option nzLabel="Garantia" nzValue="garantia"></nz-option>
+                                  <nz-option nzLabel="Suporte" nzValue="suporte"></nz-option>
+                                  <nz-option nzLabel="Desenvolvimento" nzValue="desenvolvimento">
+                                  </nz-option>
+                              </nz-select>
+                          </nz-form-control>
+                      </nz-form-control>
+                  </nz-form-item>-->
+              </div>
+              <div nz-col [nzSpan]="6">
+
+                  <nz-form-item>
+                      <nz-form-label>Imagem destaque</nz-form-label>
+                      <nz-upload class="avatar-uploader" formControlName="image" [nzHeaders]="setMediaUploadHeaders"
+                          [(nzAction)]="UPLOAD_FILE" nzName="avatar" nzListType="picture-card"
+                          [nzShowUploadList]="false" [nzBeforeUpload]="beforeUpload" (nzChange)="getFileUrl($event)">
+                          <ng-container *ngIf="!avatarUrl">
+                              <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
+                              <div class="ant-upload-text">Upload</div>
+                          </ng-container>
+                          <img *ngIf="avatarUrl" [src]="avatarUrl" style="width: 100%" />
+                      </nz-upload>
+                  </nz-form-item>
+                  <nz-form-item>
+                      <nz-form-label>Imagem do Banner</nz-form-label>
+                      <nz-upload class="avatar-uploader" formControlName="banner" [nzHeaders]="setMediaUploadHeaders"
+                          [(nzAction)]="UPLOAD_FILE" nzName="banner" nzListType="picture-card"
+                          [nzShowUploadList]="false" [nzBeforeUpload]="beforeUpload" (nzChange)="getFileUrlBanner($event)">
+                          <ng-container *ngIf="!bannerUrl">
+                              <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
+                              <div class="ant-upload-text">Upload</div>
+                          </ng-container>
+                          <img *ngIf="bannerUrl" [src]="bannerUrl" style="width: 100%" />
+                      </nz-upload>
+                  </nz-form-item>
+                  <nz-form-item>
+                      <nz-form-label>Categoria</nz-form-label>
+                      <nz-form-control>
+                          <nz-form-control>
+                              <nz-select formControlName="post_category_id" class="w-100" nzAllowClear
+                                  nzPlaceHolder="Selecione a categoria">
+                                  <nz-option *ngFor="let categoria of categorias" nzLabel="{{categoria.name}}"
+                                      [nzValue]="categoria.id"></nz-option>
+                              </nz-select>
+                          </nz-form-control>
+                      </nz-form-control>
+                  </nz-form-item>
+                  <nz-form-item>
+                      <nz-form-label>Data de publicação</nz-form-label>
+                      <nz-form-control>
+                          <nz-date-picker formControlName="publication_date" class="w-100" nzShowTime
+                              nzFormat="dd/MM/yyyy HH:mm:ss"></nz-date-picker>
+                      </nz-form-control>
+                  </nz-form-item>
+                  <nz-form-item>
+                      <nz-form-label>Situação</nz-form-label>
+                      <nz-form-control>
+                          <nz-form-control>
+                              <nz-select formControlName="post_status" class="w-100" nzAllowClear
+                                  nzPlaceHolder="Tipo de publicação">
+                                  <nz-option *ngFor="let status of post_status" nzLabel="{{status.label}}"
+                                      [nzValue]="status.value"></nz-option>
+                              </nz-select>
+                          </nz-form-control>
+                      </nz-form-control>
+                  </nz-form-item>
+              </div>
+              <div nz-col [nzSpan]="24" class="text-right">
+                  <button nz-button nzType="primary" right style="float:right; margin-left: 5px"
+                      type="submit">{{(isAddMode) ?
+                      'Adicionar' : 'Atualizar'}}</button>
+              </div>
+          </div>
+      </form>
+  </nz-card>
+</div>

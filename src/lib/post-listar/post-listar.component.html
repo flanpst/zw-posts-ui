@@ -1,0 +1,37 @@
+<div class="col-md-12">
+  <nz-card>
+      <div class="d-flex justify-content-between align-items-center">
+          <h5>Lista de postagens</h5>
+          <button nz-button nzType="primary" type="submit" (click)="novoPost()">Novo post</button>
+      </div>
+      <div class="m-t-30">
+          <nz-table  class="no-border-last" [nzFrontPagination]="false" [nzData]="data">
+              <thead>
+                  <tr>
+                      <th>Id </th>
+                      <th>Título </th>
+                      <th>Redator </th>
+                      <th>Data de publicação </th>
+                      <th>Ações</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let post of data">
+                      <td>{{post.id}}</td>
+                      <td>{{post.title}}</td>
+                      <td>{{post.user.name}}</td>
+                      <td>{{post.publication_date | date:'medium' }}</td>
+                      <td>
+                          <a (click)="editar(post.id)">
+                              <i class="feather icon-edit"></i>&nbsp;Editar
+                          </a>
+                      </td>
+                  </tr>
+              </tbody>
+          </nz-table>
+      </div>
+      <div class="pagination" #pagination *ngIf="totalItens >= per_page"  style="float: right">
+          <nz-pagination [nzPageSize]="per_page" [nzPageIndex]="1" [nzTotal]="totalItens" (nzPageIndexChange)="onPageIndexChange($event)"></nz-pagination>
+      </div>
+  </nz-card>
+</div>

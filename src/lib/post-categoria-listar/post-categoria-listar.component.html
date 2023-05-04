@@ -1,0 +1,33 @@
+<div class="col-md-12">
+  <nz-card>
+      <div class="d-flex justify-content-between align-items-center">
+          <h5>Lista de categorias</h5>
+          <button nz-button nzType="primary" type="submit" (click)="novaCategoria()">Nova categoria</button>
+      </div>
+      <div class="m-t-30">
+          <nz-table  class="no-border-last" [nzFrontPagination]="false" [nzData]="data">
+              <thead>
+                  <tr>
+                      <th>Id</th>
+                      <th>Nome da categoria </th>
+                      <th>Ações</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let categoria of data">
+                      <td>{{categoria.id}}</td>
+                      <td>{{categoria.name}}</td>
+                      <td>
+                          <a >
+                              <i class="feather icon-edit"></i>&nbsp;Excluir
+                          </a>
+                      </td>
+                  </tr>
+              </tbody>
+          </nz-table>
+      </div>
+      <div class="pagination" #pagination *ngIf="totalItens >= per_page"  style="float: right">
+          <nz-pagination [nzPageSize]="per_page" [nzPageIndex]="1" [nzTotal]="totalItens" (nzPageIndexChange)="onPageIndexChange($event)"></nz-pagination>
+      </div>
+  </nz-card>
+</div>

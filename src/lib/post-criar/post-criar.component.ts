@@ -2,7 +2,6 @@ import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { AuthenticationService } from 'src/app/authentication/services/authentication.service';
 import { CmsPostsCategoriasService } from '../cms-posts-categorias.service';
 import { CmsPostsService } from '../cms-posts.service';
 import { Observable, Observer, first } from 'rxjs';
@@ -63,7 +62,6 @@ export class PostCriarComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private service: CmsPostsService,
-    private authService: AuthenticationService,
     private categoriaService: CmsPostsCategoriasService
   ) { }
 

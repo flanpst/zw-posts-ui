@@ -70,7 +70,6 @@ export class PostCriarComponent implements OnInit {
   ngOnInit(): void {
     this.iniciarFormulario();
     this.listarCategorias();
-    this.getToken()
 
     this.id = this.route.snapshot.params['id'];
 
@@ -108,14 +107,6 @@ export class PostCriarComponent implements OnInit {
       publication_date: new FormControl(''),
       user_id: new FormControl('')
     })
-  }
-
-  getToken(){
-    this.authService
-      .getUserDetails()
-      .subscribe(resp => {
-        this.tokenUser = resp.token;
-      })
   }
 
   listarCategorias(){
@@ -194,8 +185,10 @@ export class PostCriarComponent implements OnInit {
 
   setMediaUploadHeaders = (file: NzUploadFile) => {
 
+    const tokenUser = localStorage.getItem('token');
+
     return {
-      "authorization": 'Bearer ' + this.tokenUser
+      "authorization": 'Bearer ' + tokenUser
     }
   };
 

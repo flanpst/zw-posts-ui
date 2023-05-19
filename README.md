@@ -22,3 +22,14 @@ Run `ng test cms-posts` to execute the unit tests via [Karma](https://karma-runn
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Compatilidade
+- NZ Zorro
+- ZWCMS 
+
+## Instalação
+ - Acessar container admin do projeto
+ - Realizar instalação da biblioteca através do comando
+`npm i zw-posts-ui`
+ - Incluir CmsPostsModule no módulo pages incluindo environment para captura dos dados das variáveis
+ `CmsPostsModule.forRoot(environment)`

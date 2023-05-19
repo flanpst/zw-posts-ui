@@ -59,6 +59,10 @@ const antdModule = [
     ...antdModule
   ],
   exports: [
+    PostCategoriaCriarComponent,
+    PostCategoriaListarComponent,
+    PostCriarComponent,
+    PostListarComponent
   ],
   providers: [
     {

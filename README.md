@@ -33,3 +33,35 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 `npm i zw-posts-ui`
  - Incluir CmsPostsModule no módulo pages incluindo environment para captura dos dados das variáveis
  `CmsPostsModule.forRoot(environment)`
+
+## Rotas Menu
+`
+[
+                'path' => '',
+                'title' => 'Postagens',
+                'iconType' => 'nzIcon',
+                'iconTheme' => 'outline',
+                'icon' => 'snippets',
+                'submenu' => 
+                    array(
+                        [
+                            'path' => 'post',
+                            'title' => 'Postagens',
+                            'iconType' => 'nzIcon',
+                            'iconTheme' => 'outline',
+                            'icon' => 'snippets',
+                            'submenu' => []
+                                
+                        ],
+                        [
+                            'path' => 'post-categorias',
+                            'title' => 'Categorias',
+                            'iconType' => 'nzIcon',
+                            'iconTheme' => 'outline',
+                            'icon' => 'snippets',
+                            'submenu' => []
+                                
+                        ],
+                    )     
+            ],
+`

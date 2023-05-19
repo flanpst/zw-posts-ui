@@ -1,4 +1,4 @@
-import { LOCALE_ID, ModuleWithProviders, NgModule } from '@angular/core';
+import { InjectionToken, LOCALE_ID, ModuleWithProviders, NgModule } from '@angular/core';
 import { PostCriarComponent } from './post-criar/post-criar.component';
 import { PostListarComponent } from './post-listar/post-listar.component';
 import { PostCategoriaCriarComponent } from './post-categoria-criar/post-categoria-criar.component';
@@ -25,6 +25,9 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { TagInputModule } from 'ngx-chips';
 import { NzTableModule } from 'ng-zorro-antd/table';
+import { env } from './cms-posts-configuration';
+
+export const ENVIRONMENT = new InjectionToken<env>('env');
 
 const antdModule = [
   NzCardModule,
@@ -80,7 +83,7 @@ const antdModule = [
   ]
 })
 export class CmsPostsModule {
-  static forRoot(environment): ModuleWithProviders<any> {
+  static forRoot(environment?: env): ModuleWithProviders<any> {
 
     return {
         ngModule: CmsPostsModule,
@@ -88,7 +91,7 @@ export class CmsPostsModule {
             CmsPostsService,
             CmsPostsCategoriasService,
             {
-                provide: 'env', // you can also use InjectionToken
+                provide: ENVIRONMENT, // you can also use InjectionToken
                 useValue: environment
             }
         ]

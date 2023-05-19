@@ -83,7 +83,7 @@ const antdModule = [
   ]
 })
 export class CmsPostsModule {
-  static forRoot(environment?: env): ModuleWithProviders<any> {
+  static forRoot(environment?: env): ModuleWithProviders<CmsPostsModule> {
 
     return {
         ngModule: CmsPostsModule,

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { CrudService } from './abstract/crud.service';
 import { CmsPostsCategorias } from './class/cms-posts-categorias';
+import { ENVIRONMENT } from './cms-posts.module';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { CmsPostsCategorias } from './class/cms-posts-categorias';
 export class CmsPostsCategoriasService extends CrudService<CmsPostsCategorias, number>{
 
   constructor(
-    @Inject('env') protected environment,
+    @Inject(ENVIRONMENT) protected environment,
     protected _http: HttpClient
   ) {
     super(environment, _http)

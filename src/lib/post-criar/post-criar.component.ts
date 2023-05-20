@@ -7,6 +7,7 @@ import { CmsPostsService } from '../cms-posts.service';
 import { Observable, Observer, first } from 'rxjs';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { CmsPostsCategorias } from '../class/cms-posts-categorias';
+import { ENVIRONMENT } from '../cms-posts.module';
 
 @Component({
   selector: 'zwcms-post-criar',
@@ -56,7 +57,7 @@ export class PostCriarComponent implements OnInit {
   };
 
   constructor(
-    @Inject('env') protected environment,
+    @Inject(ENVIRONMENT) protected environment,
     private route: ActivatedRoute,
     private msg: NzMessageService,
     private fb: FormBuilder,

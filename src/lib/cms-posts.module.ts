@@ -19,7 +19,6 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NZ_I18N, pt_BR } from 'ng-zorro-antd/i18n';
 import { CmsPostsService } from './cms-posts.service';
 import { CmsPostsRoutingModule } from './cms-posts-routing.module';
-import { QuillModule } from 'ngx-quill';
 import { CmsPostsCategoriasService } from './cms-posts-categorias.service';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzTagModule } from 'ng-zorro-antd/tag';
@@ -58,7 +57,6 @@ const antdModule = [
     NzIconModule,
     TagInputModule,
     CmsPostsRoutingModule,
-    QuillModule.forRoot(),
     ...antdModule
   ],
   exports: [

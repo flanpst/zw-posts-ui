@@ -1,8 +1,6 @@
 import { InjectionToken, LOCALE_ID, ModuleWithProviders, NgModule } from '@angular/core';
 import { PostCriarComponent } from './post-criar/post-criar.component';
 import { PostListarComponent } from './post-listar/post-listar.component';
-import { PostCategoriaCriarComponent } from './post-categoria-criar/post-categoria-criar.component';
-import { PostCategoriaListarComponent } from './post-categoria-listar/post-categoria-listar.component';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
@@ -19,12 +17,14 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NZ_I18N, pt_BR } from 'ng-zorro-antd/i18n';
 import { CmsPostsService } from './cms-posts.service';
 import { CmsPostsRoutingModule } from './cms-posts-routing.module';
-import { CmsPostsCategoriasService } from './cms-posts-categorias.service';
+import { QuillModule } from 'ngx-quill';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { TagInputModule } from 'ngx-chips';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { env } from './cms-posts-configuration';
+import { PostCategoriaCriarComponent } from './post-categoria-criar/post-categoria-criar.component';
+import { PostCategoriaListarComponent } from './post-categoria-listar/post-categoria-listar.component';
 
 export const ENVIRONMENT = new InjectionToken<env>('env');
 
@@ -57,13 +57,14 @@ const antdModule = [
     NzIconModule,
     TagInputModule,
     CmsPostsRoutingModule,
+    QuillModule,
     ...antdModule
   ],
   exports: [
-    PostCategoriaCriarComponent,
-    PostCategoriaListarComponent,
     PostCriarComponent,
-    PostListarComponent
+    PostListarComponent,
+    PostCategoriaCriarComponent,
+    PostCategoriaListarComponent
   ],
   providers: [
     {
@@ -87,7 +88,6 @@ export class CmsPostsModule {
         ngModule: CmsPostsModule,
         providers: [
             CmsPostsService,
-            CmsPostsCategoriasService,
             {
                 provide: ENVIRONMENT, // you can also use InjectionToken
                 useValue: environment

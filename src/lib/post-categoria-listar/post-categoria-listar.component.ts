@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CmsPostsCategorias } from '../class/cms-posts-categorias';
 import { Router } from '@angular/router';
-import { CmsPostsCategoriasService } from '../cms-posts-categorias.service';
+import { CmsPostsService } from '../cms-posts.service';
 
 @Component({
   selector: 'zwcms-post-categoria-listar',
@@ -16,7 +16,7 @@ export class PostCategoriaListarComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private service: CmsPostsCategoriasService
+    private service: CmsPostsService
   ) { }
 
   ngOnInit(): void {
@@ -29,7 +29,7 @@ export class PostCategoriaListarComponent implements OnInit {
 
   listarCategorias(){
     this.service
-      .findAll()
+      .findAllCategory()
       .subscribe(resp => {
         this.data = resp['data']
         this.totalItens = resp['total']
@@ -39,7 +39,7 @@ export class PostCategoriaListarComponent implements OnInit {
 
   onPageIndexChange(e){
     this.service
-      .getPage(e)
+      .getPageCategory(e)
       .subscribe(resp => {
         console.log(e)
         this.data = resp['data']

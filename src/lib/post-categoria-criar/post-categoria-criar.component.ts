@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CmsPostsCategoriasService } from '../cms-posts-categorias.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { first } from 'rxjs';
+import { CmsPostsService } from '../cms-posts.service';
 
 @Component({
   selector: 'zwcms-post-categoria-criar',
@@ -18,7 +18,7 @@ export class PostCategoriaCriarComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private service: CmsPostsCategoriasService,
+    private service: CmsPostsService,
     private formBuilder: FormBuilder,
     private msg: NzMessageService,
     private router: Router
@@ -32,7 +32,7 @@ export class PostCategoriaCriarComponent implements OnInit {
     this.isAddMode = !this.id;
 
     if(!this.isAddMode){
-      this.service.findOne(this.id)
+      this.service.findOneCategory(this.id)
         .pipe(first())
         .subscribe(x => {
           this.form.patchValue(x)
@@ -65,7 +65,7 @@ export class PostCategoriaCriarComponent implements OnInit {
 
   private createData(){
     this.service
-      .save(this.form.value)
+      .saveCategory(this.form.value)
       .pipe(first())
       .subscribe(() => {
         this.msg.success('Registro salvo com sucesso!');
@@ -75,7 +75,7 @@ export class PostCategoriaCriarComponent implements OnInit {
 
   private updateData(){
     this.service
-      .update(this.id, this.form.value)
+      .updateCategory(this.id, this.form.value)
       .pipe(first())
       .subscribe(() => {
         this.msg.success('Registro salvo com sucesso!');

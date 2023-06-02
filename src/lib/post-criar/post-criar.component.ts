@@ -2,7 +2,6 @@ import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { CmsPostsCategoriasService } from '../cms-posts-categorias.service';
 import { CmsPostsService } from '../cms-posts.service';
 import { Observable, Observer, first } from 'rxjs';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
@@ -62,8 +61,7 @@ export class PostCriarComponent implements OnInit {
     private msg: NzMessageService,
     private fb: FormBuilder,
     private router: Router,
-    private service: CmsPostsService,
-    private categoriaService: CmsPostsCategoriasService
+    private service: CmsPostsService
   ) { }
 
   ngOnInit(): void {
@@ -109,8 +107,8 @@ export class PostCriarComponent implements OnInit {
   }
 
   listarCategorias(){
-    this.categoriaService
-      .getList()
+    this.service
+      .getListCategory()
       .subscribe(resp => {
         this.categorias = resp;
       })
